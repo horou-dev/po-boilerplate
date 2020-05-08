@@ -1607,6 +1607,20 @@ afterLogIn : function(src) {
     }
     countbot.sendMessage(src, (typeof(this.startUpTime()) == "string" ?  "Server Uptime: " + this.startUpTime() + ".  " : "")  + "Max Players Online: " + sys.getVal("MaxPlayersOnline") + ".");
     sys.sendMessage(src, "");
+	
+	if (sys.auth(src) == 3) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.owner + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
+	}
+	if (sys.auth(src) == 2) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.admin + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
+	}
+	if (sys.auth(src) == 1) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.mod + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
+	}
+	if (sys.auth(src) == 0) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.user + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
+    }
+	
     callplugins("afterLogIn", src);
 
    /*if (SESSION.users(src).android) {
@@ -1633,19 +1647,6 @@ afterLogIn : function(src) {
     
 	authChangingTeam = (sys.auth(src) > 0 && sys.auth(src) <= 3);
     this.afterChangeTeam(src);
-
-	if (sys.auth(src) == 3) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.owner + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
-	}
-	if (sys.auth(src) == 2) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.admin + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
-	}
-	if (sys.auth(src) == 1) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.mod + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
-	}
-	if (sys.auth(src) == 0) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.user + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
-    }
 	
     if (this.canJoinStaffChannel(src) && !sys.isInChannel(src, staffchannel))
         sys.putInChannel(src, staffchannel);
