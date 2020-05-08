@@ -1606,18 +1606,6 @@ afterLogIn : function(src) {
         sys.saveVal("MaxPlayersOnline", maxPlayersOnline);
     }
     countbot.sendMessage(src, (typeof(this.startUpTime()) == "string" ?  "Server Uptime: " + this.startUpTime() + ".  " : "")  + "Max Players Online: " + sys.getVal("MaxPlayersOnline") + ".");
-    if (sys.auth(src) == 3) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.owner + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
-	}
-	if (sys.auth(src) == 2) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.admin + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
-	}
-	if (sys.auth(src) == 1) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.mod + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
-	}
-	if (sys.auth(src) == 0) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.user + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
-    }
     sys.sendMessage(src, "");
     callplugins("afterLogIn", src);
 
@@ -1639,18 +1627,33 @@ afterLogIn : function(src) {
 
     if (SESSION.users(src).megauser)
         sys.appendToFile("staffstats.txt", sys.name(src) + "~" + src + "~" + sys.time() + "~" + "Connected as MU" + "\n");
-    if (sys.auth(src) > 0 && sys.auth(src) <= 3)
+    
+	if (sys.auth(src) > 0 && sys.auth(src) <= 3)
         sys.appendToFile("staffstats.txt", sys.name(src) + "~" + src + "~" + sys.time() + "~" + "Connected as Auth" + "\n");
-    authChangingTeam = (sys.auth(src) > 0 && sys.auth(src) <= 3);
+    
+	authChangingTeam = (sys.auth(src) > 0 && sys.auth(src) <= 3);
     this.afterChangeTeam(src);
 
+	if (sys.auth(src) == 3) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.owner + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
+	}
+	if (sys.auth(src) == 2) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.admin + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
+	}
+	if (sys.auth(src) == 1) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.mod + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
+	}
+	if (sys.auth(src) == 0) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.user + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
+    }
+	
     if (this.canJoinStaffChannel(src) && !sys.isInChannel(src, staffchannel))
         sys.putInChannel(src, staffchannel);
 
-    if (sys.loggedIn(sys.id("Blinky"))) {
+    /*if (sys.loggedIn(sys.id("Blinky"))) {
         sys.sendMessage(sys.id("Blinky"), "±Luxray: " + sys.name(src) + " # USERINFO", staffchannel);
     }
-    /*if (isAndroid(src)) {
+    if (isAndroid(src)) {
         normalbot.sendMessage(src, "New android version back on Play Store! See: http://pokemon-online.eu/threads/po-android-play-store-revival.29571/");
     }*/
 }, /* end of afterLogin */
@@ -1674,8 +1677,22 @@ beforePlayerRegister : function(src) {
 beforeLogOut : function(src) {
     if (SESSION.users(src).megauser)
         sys.appendToFile("staffstats.txt", sys.name(src) + "~" + src + "~" + sys.time() + "~" + "Disconnected as MU" + "\n");
-    if (sys.auth(src) > 0 && sys.auth(src) <= 3)
+    
+	if (sys.auth(src) > 0 && sys.auth(src) <= 3)
         sys.appendToFile("staffstats.txt", sys.name(src) + "~" + src + "~" + sys.time() + "~" + "Disconnected as Auth" + "\n");
+	
+	if (sys.auth(src) == 3) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.owner + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has left the server!", channel);
+	}
+	if (sys.auth(src) == 2) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.admin + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has left the server!", channel);
+	}
+	if (sys.auth(src) == 1) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.mod + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has left the server!", channel);
+	}
+	if (sys.auth(src) == 0) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.user + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has left the server!", channel);
+    }
 },
 
 afterLogOut : function(src) {
