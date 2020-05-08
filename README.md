@@ -24,4 +24,4 @@ In particular, following practices are frowned upon:
 - trailing whitespace
 - undefined variables (always use var in the outermost scope for that variable)
 
-Full list of contributors here: https://github,com/horou-dev/po-boilerplate/graphs/contributors with credit to https://github.com/po-devs/po-server-goodies/graphs/contributors
+Full list of contributors here: https://github.com/horou-dev/po-boilerplate/graphs/contributors with credit to https://github.com/po-devs/po-server-goodies/graphs/contributors
