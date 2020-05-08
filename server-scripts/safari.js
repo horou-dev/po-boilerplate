@@ -23,35 +23,35 @@ function Safari() {
     var lastCheckedRepo = 0;
     var scriptHashCode = null;
 
-    var saveFiles = "scriptdata/safarisaves.txt";
-    var saveBackupFile1 = "scriptdata/safari/savesBackup1.txt";
-    var saveBackupFile2 = "scriptdata/safari/savesBackup2.txt";
-    var saveBackupFile3 = "scriptdata/safari/savesBackup3.txt";
-    var saveBackupFile4 = "scriptdata/safari/savesBackup4.txt";
-    var saveBackupFile5 = "scriptdata/safari/savesBackup5.txt";
-    var deletedSaveFiles = "scriptdata/safari/deletedsafarisaves.txt";
-    var themesFile = "scriptdata/safari/themes.txt";
-    var decorationsFile = "scriptdata/safari/decorations.txt";
-    var missionsFile = "scriptdata/safari/missions.txt";
-    var fortunesFile = "scriptdata/safari/fortunes.txt";
-    var tradeLog = "scriptdata/safaritrades.txt";
-    var rareTradeLog = "scriptdata/safari/raretrades.txt";
-    var shopLog = "scriptdata/safarishoplog.txt";
-    var auctionLog = "scriptdata/safariauctions.txt";
-    var altLog = "scriptdata/safarialtlog.txt";
-    var lostLog = "scriptdata/safaricommands.txt";
-    var mythLog = "scriptdata/safari/mythlog.txt";
-    var eventLog = "scriptdata/safari/eventlog.txt";
-    var giftLog = "scriptdata/safari/giftlog.txt";
-    var crossLog = "scriptdata/safari/crosslog.txt";
-    var miscLog = "scriptdata/safari/misclog.txt";
-    var questLog = "scriptdata/safari/questlog.txt";
-    var tradebansFile = "scriptdata/safaribans.txt";
-    var saltbansFile = "scriptdata/safarisalt.txt";
-    var permFile = "scriptdata/safariobjects.txt";
-    var configFile = "scriptdata/safari/config.txt";
-    var rafflePlayersFile = "scriptdata/safari/raffleplayers.txt";
-    var idnumFile = "scriptdata/safari/idnum.txt";
+    var saveFiles = "server-data/safarisaves.txt";
+    var saveBackupFile1 = "server-data/safari/savesBackup1.txt";
+    var saveBackupFile2 = "server-data/safari/savesBackup2.txt";
+    var saveBackupFile3 = "server-data/safari/savesBackup3.txt";
+    var saveBackupFile4 = "server-data/safari/savesBackup4.txt";
+    var saveBackupFile5 = "server-data/safari/savesBackup5.txt";
+    var deletedSaveFiles = "server-data/safari/deletedsafarisaves.txt";
+    var themesFile = "server-data/safari/themes.txt";
+    var decorationsFile = "server-data/safari/decorations.txt";
+    var missionsFile = "server-data/safari/missions.txt";
+    var fortunesFile = "server-data/safari/fortunes.txt";
+    var tradeLog = "server-data/safaritrades.txt";
+    var rareTradeLog = "server-data/safari/raretrades.txt";
+    var shopLog = "server-data/safarishoplog.txt";
+    var auctionLog = "server-data/safariauctions.txt";
+    var altLog = "server-data/safarialtlog.txt";
+    var lostLog = "server-data/safaricommands.txt";
+    var mythLog = "server-data/safari/mythlog.txt";
+    var eventLog = "server-data/safari/eventlog.txt";
+    var giftLog = "server-data/safari/giftlog.txt";
+    var crossLog = "server-data/safari/crosslog.txt";
+    var miscLog = "server-data/safari/misclog.txt";
+    var questLog = "server-data/safari/questlog.txt";
+    var tradebansFile = "server-data/safaribans.txt";
+    var saltbansFile = "server-data/safarisalt.txt";
+    var permFile = "server-data/safariobjects.txt";
+    var configFile = "server-data/safari/config.txt";
+    var rafflePlayersFile = "server-data/safari/raffleplayers.txt";
+    var idnumFile = "server-data/safari/idnum.txt";
 
     var permObj;
     var configObj;
@@ -1661,12 +1661,12 @@ function Safari() {
         missionPoints: { desc: "by most mission points", alts: ["missions", "mission", "mission points", "mission point"], alias: "mission" }
     };
     var monthlyLeaderboardTypes = {
-        pokesCaught: { desc: "by successful catches during this week", alts: ["caught weekly"], alias: "caught weekly", lastAlias: "caught last", file: "scriptdata/safari/weeklyPokesCaught.txt", lastDesc: "by successful catches during the last week", reward: false  },
-        contestsWon: { desc: "by contests won during this week", alts: ["contest weekly", "contests weekly"], alias: "contest weekly", lastAlias: "contest last", file: "scriptdata/safari/weeklyContestsWon.txt", lastDesc: "by contests won during the last week", reward: true },
-        collectorEarnings: { desc: "by money received from the Collector during this week", alts: ["collector weekly", "collector money weekly", "collectormoney weekly", "collector $ weekly"], alias: "collector weekly",  lastAlias: "collector last",isMoney: true, file: "scriptdata/safari/weeklyCollectorEarnings.txt", lastDesc: "by money received from the Collector during the last week", reward: true },
-        arenaPoints: { desc: "by Arena points won this week", alts: ["arena weekly"], alias: "arena weekly",  lastAlias: "arena last", file: "scriptdata/safari/weeklyArenaPoints.txt", lastDesc: "by Arena points won during the last week", reward: true },
-        journalPoints: { desc: "by Photo points won this week", alts: ["photo weekly", "journal weekly"], alias: "photo weekly",  lastAlias: "photo last", file: "scriptdata/safari/weeklyPhotoPoints.txt", lastDesc: "by Photo points won during the last week", reward: true },
-        pyramidScore: { desc: "by pyramid score", alts: ["pyramid weekly", "pyr weekly"], alias: "pyramid weekly",  lastAlias: "pyr last", file: "scriptdata/safari/weeklyPyramidScore.txt", lastDesc: "by Pyramid points won during the last week", reward: false }
+        pokesCaught: { desc: "by successful catches during this week", alts: ["caught weekly"], alias: "caught weekly", lastAlias: "caught last", file: "server-data/safari/weeklyPokesCaught.txt", lastDesc: "by successful catches during the last week", reward: false  },
+        contestsWon: { desc: "by contests won during this week", alts: ["contest weekly", "contests weekly"], alias: "contest weekly", lastAlias: "contest last", file: "server-data/safari/weeklyContestsWon.txt", lastDesc: "by contests won during the last week", reward: true },
+        collectorEarnings: { desc: "by money received from the Collector during this week", alts: ["collector weekly", "collector money weekly", "collectormoney weekly", "collector $ weekly"], alias: "collector weekly",  lastAlias: "collector last",isMoney: true, file: "server-data/safari/weeklyCollectorEarnings.txt", lastDesc: "by money received from the Collector during the last week", reward: true },
+        arenaPoints: { desc: "by Arena points won this week", alts: ["arena weekly"], alias: "arena weekly",  lastAlias: "arena last", file: "server-data/safari/weeklyArenaPoints.txt", lastDesc: "by Arena points won during the last week", reward: true },
+        journalPoints: { desc: "by Photo points won this week", alts: ["photo weekly", "journal weekly"], alias: "photo weekly",  lastAlias: "photo last", file: "server-data/safari/weeklyPhotoPoints.txt", lastDesc: "by Photo points won during the last week", reward: true },
+        pyramidScore: { desc: "by pyramid score", alts: ["pyramid weekly", "pyr weekly"], alias: "pyramid weekly",  lastAlias: "pyr last", file: "server-data/safari/weeklyPyramidScore.txt", lastDesc: "by Pyramid points won during the last week", reward: false }
     };
 
     /* Contest Variables */
@@ -2215,23 +2215,23 @@ function Safari() {
         icons: {},
         $: {
             sprites: {
-                file: "scriptdata/safari/sprites.txt",
-                url: Config.base_url + "scriptdata/safari/sprites.txt",
+                file: "server-data/safari/sprites.txt",
+                url: Config.base_url + "server-data/safari/sprites.txt",
                 type: "MemoryHash"
             },
             shiny: {
-                file: "scriptdata/safari/shiny.txt",
-                url: Config.base_url + "scriptdata/safari/shiny.txt",
+                file: "server-data/safari/shiny.txt",
+                url: Config.base_url + "server-data/safari/shiny.txt",
                 type: "MemoryHash"
             },
             icons: {
-                file: "scriptdata/safari/icons.txt",
-                url: Config.base_url + "scriptdata/safari/icons.txt",
+                file: "server-data/safari/icons.txt",
+                url: Config.base_url + "server-data/safari/icons.txt",
                 type: "MemoryHash"
             },
             u: {
-                file: "scriptdata/safari/u.txt",
-                url: Config.base_url + "scriptdata/safari/u.txt",
+                file: "server-data/safari/u.txt",
+                url: Config.base_url + "server-data/safari/u.txt",
                 type: "MemoryHash"
             }
         }
@@ -49738,7 +49738,7 @@ function Safari() {
                 return true;
             }
             if (command === "preptour") {
-                var file = "scriptdata/tourdata/tourhistory.json";
+                var file = "server-data/tourdata/tourhistory.json";
                 var eventData = JSON.parse(sys.getFileContent(file)).eventtours;
 
                 var amount = parseInt(commandData, 10);
