@@ -87,7 +87,7 @@ require = function require(module_name, retry) {
                     sys.sendAll("Error loading module " + module_name + ": " + e + (e.lineNumber ? " on line: " + e.lineNumber : ""), staffchannel);
                 else
                     sys.sendAll("Error loading module " + module_name + ": " + e);
-                sys.writeToFile("server-scripts/"+module_name, sys.getFileContent("server-scripts/" + module_name + "-b"));
+                sys.writeToFile("server-scripts/" + module_name, sys.getFileContent("server-scripts/" + module_name + "-b"));
                 if (!retry) {
                     require(module_name, true); //prevent loops
                 }
@@ -481,7 +481,7 @@ step: function() {
 },
 
 serverStartUp : function() {
-    SESSION.global().startUpTime = +sys.time();
+    SESSION.global().startUpTime =+ sys.time();
     scriptChecks = 0;
     this.init();
 },
@@ -580,25 +580,25 @@ init : function() {
     safarichan = SESSION.global().channelManager.createPermChannel("Safari", "Type /help to see how to play!");
 
     /* restore mutes, smutes, mafiabans, mafiawarns, rangebans, megausers */
-    script.mutes = new MemoryHash(Config.dataDir+"mutes.txt");
-    script.mbans = new MemoryHash(Config.dataDir+"mbans.txt");
-    script.smutes = new MemoryHash(Config.dataDir+"smutes.txt");
-    script.rangebans = new MemoryHash(Config.dataDir+"rangebans.txt");
-    script.contributors = new MemoryHash(Config.dataDir+"contributors.txt");
-    script.mafiaAdmins = new MemoryHash(Config.dataDir+"mafiaadmins.txt");
-    script.mafiaSuperAdmins = new MemoryHash(Config.dataDir+"mafiasuperadmins.txt");
-    script.hangmanAdmins = new MemoryHash(Config.dataDir+"hangmanadmins.txt");
-    script.hangmanSuperAdmins = new MemoryHash(Config.dataDir+"hangmansuperadmins.txt");
-    script.safbans = new MemoryHash(Config.dataDir+"safbans.txt");
-    script.ipbans = new MemoryHash(Config.dataDir+"ipbans.txt");
-    script.detained = new MemoryHash(Config.dataDir+"detained.txt");
-    script.hmutes = new MemoryHash(Config.dataDir+"hmutes.txt");
-    script.namesToWatch = new MemoryHash(Config.dataDir+"namesToWatch.txt");
-    script.namesToUnban = new MemoryHash(Config.dataDir+"namesToCookieUnban.txt");
-    script.idBans = new MemoryHash(Config.dataDir+"idbans.txt");
+    script.mutes = new MemoryHash(Config.dataDir + "mutes.txt");
+    script.mbans = new MemoryHash(Config.dataDir + "mbans.txt");
+    script.smutes = new MemoryHash(Config.dataDir + "smutes.txt");
+    script.rangebans = new MemoryHash(Config.dataDir + "rangebans.txt");
+    script.contributors = new MemoryHash(Config.dataDir + "contributors.txt");
+    script.mafiaAdmins = new MemoryHash(Config.dataDir + "mafiaadmins.txt");
+    script.mafiaSuperAdmins = new MemoryHash(Config.dataDir + "mafiasuperadmins.txt");
+    script.hangmanAdmins = new MemoryHash(Config.dataDir + "hangmanadmins.txt");
+    script.hangmanSuperAdmins = new MemoryHash(Config.dataDir + "hangmansuperadmins.txt");
+    script.safbans = new MemoryHash(Config.dataDir + "safbans.txt");
+    script.ipbans = new MemoryHash(Config.dataDir + "ipbans.txt");
+    script.detained = new MemoryHash(Config.dataDir + "detained.txt");
+    script.hmutes = new MemoryHash(Config.dataDir + "hmutes.txt");
+    script.namesToWatch = new MemoryHash(Config.dataDir + "namesToWatch.txt");
+    script.namesToUnban = new MemoryHash(Config.dataDir + "namesToCookieUnban.txt");
+    script.idBans = new MemoryHash(Config.dataDir + "idbans.txt");
     script.autoteamsAuth = new MemoryHash(Config.dataDir + "autoteamsauth.txt");
     try {
-        script.league = JSON.parse(sys.read(Config.dataDir+"league.json")).league;
+        script.league = JSON.parse(sys.read(Config.dataDir + "league.json")).league;
     } catch (e) {
         script.league = {};
     }
@@ -1606,9 +1606,7 @@ afterLogIn : function(src) {
         sys.saveVal("MaxPlayersOnline", maxPlayersOnline);
     }
     countbot.sendMessage(src, (typeof(this.startUpTime()) == "string" ?  "Server Uptime: " + this.startUpTime() + ".  " : "")  + "Max Players Online: " + sys.getVal("MaxPlayersOnline") + ".");
-    sys.sendMessage(src, "");
-	
-	if (sys.auth(src) == 3) {
+    if (sys.auth(src) == 3) {
 		sys.sendHtmlAll("<timestamp/>" + User.authTag.owner + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
 	}
 	if (sys.auth(src) == 2) {
@@ -1620,6 +1618,7 @@ afterLogIn : function(src) {
 	if (sys.auth(src) == 0) {
 		sys.sendHtmlAll("<timestamp/>" + User.authTag.user + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
     }
+	sys.sendMessage(src, "");
 	
     callplugins("afterLogIn", src);
 
