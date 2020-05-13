@@ -180,7 +180,7 @@ exports.handleCommand = function (src, command, commandData, tar, channel) {
     }
     if (command === "mute") {
         var tarId = sys.id(commandData.split(":")[0]);
-        if (isSysOp(tar)) {
+        if (isSysOp(tarId)) {
             normalbot.sendMessage(src, "You cannot mute System Operators!", channel);
             return;
         }
@@ -711,7 +711,7 @@ exports.handleCommand = function (src, command, commandData, tar, channel) {
             return;
         }
         var tarId = sys.id(commandData.split(":")[0]);
-        if (isSysOp(tar)) {
+        if (isSysOp(tarId)) {
             normalbot.sendMessage(src, "You cannot tempban System Operators!", channel);
             return;
         }
