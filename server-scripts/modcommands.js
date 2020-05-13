@@ -148,18 +148,16 @@ exports.handleCommand = function (src, command, commandData, tar, channel) {
         script.silenceoff(src, chanName);
         return;
     }
-    if (command === "k" || command === "sk") {
+    if (command === "k" || command === "sk" || command === "kick") {
         if (!tar) {
             normalbot.sendMessage(src, "No such user.", channel);
             return;
         }
-        if (!isSuperAdmin(src)) {
-            if (sys.auth(tar) >= sys.auth(src) && sys.auth(src) < 3) {
-                normalbot.sendMessage(src, "Let's not kick another auth and give us a bad reputation now. :)", channel);
-                return;
-            }
+        if (isSysOp(tar)) {
+            normalbot.sendMessage(src, "You cannot kick System Operators!", channel);
+            return;
         }
-        if (command === "k") {
+        if (command === "k" || command === "kick") {
             normalbot.sendAll(commandData + " was mysteriously kicked by " + nonFlashing(sys.name(src)) + "! [Channel: " + sys.channel(channel) + "]");
             sys.kick(tar);
         } else {
@@ -182,11 +180,9 @@ exports.handleCommand = function (src, command, commandData, tar, channel) {
     }
     if (command === "mute") {
         var tarId = sys.id(commandData.split(":")[0]);
-        if (!isSuperAdmin(src)) {
-            if (sys.auth(tarId) >= sys.auth(src) && sys.auth(src) < 3) {
-                normalbot.sendMessage(src, "Let's not mute another auth and give us a bad reputation now. :)", channel);
-                return;
-            }
+        if (isSysOp(tar)) {
+            normalbot.sendMessage(src, "You cannot mute System Operators!", channel);
+            return;
         }
         script.issueBan("mute", src, tar, commandData);
         return;
@@ -715,11 +711,9 @@ exports.handleCommand = function (src, command, commandData, tar, channel) {
             return;
         }
         var tarId = sys.id(commandData.split(":")[0]);
-        if (!isSuperAdmin(src)) {
-            if (sys.auth(tarId) >= sys.auth(src) && sys.auth(src) < 3) {
-                normalbot.sendMessage(src, "Let's not ban another auth and give us a bad reputation now. :)", channel);
-                return;
-            }
+        if (isSysOp(tar)) {
+            normalbot.sendMessage(src, "You cannot tempban System Operators!", channel);
+            return;
         }
         var targetName = tmp[0];
         if (tmp[1] === undefined || isNaN(tmp[1][0])) {
@@ -827,7 +821,7 @@ exports.handleCommand = function (src, command, commandData, tar, channel) {
         } else {
             normalbot.sendMessage(src, "That player has no teams with valid pokemon.", channel);
         }
-        sys.appendToFile("scriptdata/showteamlog.txt", "{0} viewed the team of {1} -- ({2})\n".format(sys.name(src), sys.name(tar), new Date().toUTCString()));
+        sys.appendToFile("server-data/showteamlog.txt", "{0} viewed the team of {1} -- ({2})\n".format(sys.name(src), sys.name(tar), new Date().toUTCString()));
         return;
     }
     return "no command";

@@ -61,8 +61,8 @@ if (typeof tours !== "object") {
     }
 }
 
-var configDir = "scriptdata/tourconfig/";
-var dataDir = "scriptdata/tourdata/";
+var configDir = "server-data/tourconfig/";
+var dataDir = "server-data/tourdata/";
 var utilities = require('utilities.js');
 var html_escape = require('utilities.js').html_escape;
 var AutoTeams = require("autoteams.js");

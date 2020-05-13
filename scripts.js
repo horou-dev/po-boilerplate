@@ -13,6 +13,9 @@ var serverName = "";
 var appealLink = "";
 var User = {};
 
+// Sysop List.
+var sysOpUsers = [];
+
 User.authTag = {
 	user   : "<b><font color='grey'>[User]</font></b>",
 	mod    : "<b><font color='#0d255e'>[Moderator]</font></b>",
@@ -125,7 +128,7 @@ var updateModule = function updateModule(module_name, callback) {
    }
 };
 
-var channel, contributors, mutes, mbans, safbans, smutes, detained, hmutes, mafiaSuperAdmins, hangmanAdmins, hangmanSuperAdmins, staffchannel, channelbot, normalbot, bot, mafiabot, kickbot, capsbot, checkbot, coinbot, countbot, tourneybot, battlebot, commandbot, querybot, rankingbot, hangbot, bfbot, scriptChecks, lastMemUpdate, bannedUrls, mafiachan, sachannel, tourchannel, rangebans, proxy_ips, mafiaAdmins, authStats, nameBans, chanNameBans, isSuperAdmin, cmp, key, battlesStopped, lineCount, maxPlayersOnline, pastebin_api_key, pastebin_user_key, getSeconds, getTimeString, sendChanMessage, sendChanAll, sendMainTour, VarsCreated, authChangingTeam, usingBannedWords, repeatingOneself, capsName, CAPSLOCKDAYALLOW, nameWarns, poScript, revchan, triviachan, watchchannel, lcmoves, hangmanchan, ipbans, battlesFought, lastCleared, blackjackchan, namesToWatch, allowedRangeNames, reverseTohjo, safaribot, safarichan, tourconfig, teamsbot, autoteamsAuth;
+var channel, contributors, mutes, mbans, safbans, smutes, detained, hmutes, mafiaSuperAdmins, hangmanAdmins, hangmanSuperAdmins, staffchannel, channelbot, normalbot, bot, mafiabot, kickbot, capsbot, checkbot, coinbot, countbot, tourneybot, battlebot, commandbot, querybot, rankingbot, hangbot, bfbot, scriptChecks, lastMemUpdate, bannedUrls, mafiachan, sachannel, tourchannel, rangebans, proxy_ips, mafiaAdmins, authStats, nameBans, chanNameBans, isSysOp, cmp, key, battlesStopped, lineCount, maxPlayersOnline, pastebin_api_key, pastebin_user_key, getSeconds, getTimeString, sendChanMessage, sendChanAll, sendMainTour, VarsCreated, authChangingTeam, usingBannedWords, repeatingOneself, capsName, CAPSLOCKDAYALLOW, nameWarns, poScript, revchan, triviachan, watchchannel, lcmoves, hangmanchan, ipbans, battlesFought, lastCleared, blackjackchan, namesToWatch, allowedRangeNames, reverseTohjo, safaribot, safarichan, tourconfig, teamsbot, autoteamsAuth;
 
 var pokeDir = "db/pokes/";
 var moveDir = "db/moves/7G/";
@@ -487,7 +490,7 @@ serverStartUp : function() {
 },
 
 init : function() {
-    script.superAdmins = ["Mahnmut", "Atli", "E.T."];
+    script.sysOpUser = sysOpUsers;
     script.rules = {
         "1": {
             "english": [
@@ -671,12 +674,12 @@ init : function() {
     //script.isMafiaAdmin = require('mafia.js').isMafiaAdmin;
     //script.isMafiaSuperAdmin = require('mafia.js').isMafiaSuperAdmin;
     //script.isSafariAdmin = require('safari.js').isChannelAdmin;
-    isSuperAdmin = function(id) {
-        if (typeof script.superAdmins != "object" || script.superAdmins.length === undefined) return false;
-        if (sys.auth(id) != 2) return false;
+    isSysOp = function(id) {
+        if (typeof script.sysOpUser != "object" || script.sysOpUser.length === undefined) return false;
+        // if (sys.auth(id) != 2) return false;
         var name = sys.name(id);
-        for (var i = 0; i < script.superAdmins.length; ++i) {
-            if (script.cmp(name, script.superAdmins[i]))
+        for (var i = 0; i < script.sysOpUser.length; ++i) {
+            if (script.cmp(name, script.sysOpUser[i]))
                 return true;
         }
         return false;

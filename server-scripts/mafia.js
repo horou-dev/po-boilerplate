@@ -6,7 +6,7 @@
 */
 
 // Global variables inherited from scripts.js
-/*global mafiabot, getTimeString, getSeconds, updateModule, script, sys, SESSION, sendChanAll, require, Config, module, sachannel, staffchannel, sendChanHtmlAll, isSuperAdmin*/
+/*global mafiabot, getTimeString, getSeconds, updateModule, script, sys, SESSION, sendChanAll, require, Config, module, sachannel, staffchannel, sendChanHtmlAll, isSysOp*/
 /*jshint laxbreak:true,shadow:true,undef:true,evil:true,trailing:true,proto:true,withstmt:true,eqnull:true*/
 
 var MAFIA_CHANNEL = "Mafia";
@@ -601,7 +601,7 @@ function Mafia(mafiachan) {
     }
     ThemeManager.prototype.toString = function () { return "[object ThemeManager]"; };
     ThemeManager.prototype.save = function (name, url, resp) {
-        var fname = "scriptdata/mafiathemes/theme_" + name.replace("/", "").toLowerCase();
+        var fname = "server-data/mafiathemes/theme_" + name.replace("/", "").toLowerCase();
         sys.writeToFile(fname, resp);
         var done = false;
         for (var i = 0; i < this.themeInfo.length; ++i) {
@@ -614,7 +614,7 @@ function Mafia(mafiachan) {
         if (!done) {
             this.themeInfo.push([name, url, fname, true]);
         }
-        sys.writeToFile("scriptdata/mafiathemes/metadata.json", JSON.stringify({ 'meta': this.themeInfo }));
+        sys.writeToFile("server-data/mafiathemes/metadata.json", JSON.stringify({ 'meta': this.themeInfo }));
     };
     ThemeManager.prototype.loadTheme = function (plain_theme) {
         var theme = new Theme();
@@ -730,7 +730,7 @@ function Mafia(mafiachan) {
         if (typeof sys !== "object") return;
         this.themes = {};
         this.themes[defaultThemeName] = this.loadTheme(defaultTheme);
-        var content = sys.getFileContent("scriptdata/mafiathemes/metadata.json");
+        var content = sys.getFileContent("server-data/mafiathemes/metadata.json");
         if (!content) return;
         var parsed = JSON.parse(content);
         if (parsed.hasOwnProperty("meta")) {
@@ -748,10 +748,10 @@ function Mafia(mafiachan) {
     };
     ThemeManager.prototype.saveToFile = function (plain_theme) {
         if (typeof sys != "object") return;
-        var fname = "scriptdata/mafiathemes/theme_" + plain_theme.name.toLowerCase();
+        var fname = "server-data/mafiathemes/theme_" + plain_theme.name.toLowerCase();
         sys.writeToFile(fname, JSON.stringify(plain_theme));
         this.themeInfo.push([plain_theme.name, "", fname, true]);
-        sys.writeToFile("scriptdata/mafiathemes/metadata.json", JSON.stringify({ 'meta': this.themeInfo }));
+        sys.writeToFile("server-data/mafiathemes/metadata.json", JSON.stringify({ 'meta': this.themeInfo }));
     };
     ThemeManager.prototype.loadWebTheme = function (url, announce, update, updatename, src, isNew) {
         if (typeof sys != 'object') return;
@@ -832,7 +832,7 @@ function Mafia(mafiachan) {
                     break;
                 }
             }
-            sys.writeToFile("scriptdata/mafiathemes/metadata.json", JSON.stringify({ 'meta': this.themeInfo }));
+            sys.writeToFile("server-data/mafiathemes/metadata.json", JSON.stringify({ 'meta': this.themeInfo }));
             if (silent) {
                 msg(src, "You removed the theme " + broadcastname + ".");
             } else {
@@ -851,7 +851,7 @@ function Mafia(mafiachan) {
                     break;
                 }
             }
-            sys.writeToFile("scriptdata/mafiathemes/metadata.json", JSON.stringify({ 'meta': this.themeInfo }));
+            sys.writeToFile("server-data/mafiathemes/metadata.json", JSON.stringify({ 'meta': this.themeInfo }));
             var broadcastname = casedtheme(name);
             if (!silent) {
                 dualBroadcast("±" + mafiabot.name + ": " + nonFlashing(sys.name(src)) + " enabled theme " + broadcastname + ".");
@@ -870,7 +870,7 @@ function Mafia(mafiachan) {
                     break;
                 }
             }
-            sys.writeToFile("scriptdata/mafiathemes/metadata.json", JSON.stringify({ 'meta': this.themeInfo }));
+            sys.writeToFile("server-data/mafiathemes/metadata.json", JSON.stringify({ 'meta': this.themeInfo }));
             var broadcastname = casedtheme(name);
             if (!silent) {
                 if (src !== Config.Mafia.bot) {
@@ -6753,7 +6753,7 @@ function Mafia(mafiachan) {
         return sys.auth(src) >= 1 || mafia.isMafiaSuperAdmin(src) || script.mafiaAdmins.hash.hasOwnProperty(sys.name(src).toLowerCase());
     };
     this.isMafiaSuperAdmin = function (src) {
-        return sys.auth(src) >= 3 || script.mafiaSuperAdmins.hash.hasOwnProperty(sys.name(src).toLowerCase()) || isSuperAdmin(src);
+        return sys.auth(src) >= 3 || script.mafiaSuperAdmins.hash.hasOwnProperty(sys.name(src).toLowerCase()) || isSysOp(src);
     };
 
     this.slayUser = function (src, name, delayed) {
@@ -9145,7 +9145,7 @@ function Mafia(mafiachan) {
                 return;
             }
             name = name.replace("/", "").toLowerCase();
-            var json = sys.getFileContent("scriptdata/mafiathemes/theme_" + name);
+            var json = sys.getFileContent("server-data/mafiathemes/theme_" + name);
             var fileName = sys.time() + "-" + name + ".json";
             sys.writeToFile("usage_stats/formatted/team/" + fileName, json);
             normalbot.sendMessage(src, "The raw theme can be found here: http://server.pokemon-online.eu/team/" + fileName, channel);

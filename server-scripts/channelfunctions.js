@@ -58,7 +58,7 @@ POChannel.prototype.isChannelOwner = function(id)
     if (!sys.dbRegistered(sys.name(id))) {
         return false;
     }
-    if (sys.auth(id) >= 3 || isSuperAdmin(id)) {
+    if (sys.auth(id) >= 3 || isSysOp(id)) {
         return true;
     }
     if (typeof this.masters != "object") {

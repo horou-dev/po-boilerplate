@@ -3,7 +3,7 @@ var find_tier = utilities.find_tier;
 var html_escape = utilities.html_escape;
 
 var AutoTeams = {
-    dataDirectory: "scriptdata/autoteams/",
+    dataDirectory: "server-data/autoteams/",
     teams: {
         /*
         "ORAS OU": {

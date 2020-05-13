@@ -4,7 +4,7 @@ function POChannelManager(fname)
     /* Permanent channels */
     this.channelDataFile = fname;
     this.channelMap = new MemoryHash(this.channelDataFile);
-    sys.makeDir("scriptdata/channeldata");
+    sys.makeDir("server-data/channeldata");
 }
 
 POChannelManager.prototype.toString = function()
@@ -54,7 +54,7 @@ POChannelManager.prototype.dataFileFor = function(channel)
 {
     var chanName = sys.channel(channel).toLowerCase();
     if (!this.channelMap.get(chanName)) {
-       var genName = "scriptdata/channeldata/" + Date.now() + Math.random().toString().substr(2) + ".json";
+       var genName = "server-data/channeldata/" + Date.now() + Math.random().toString().substr(2) + ".json";
        this.channelMap.add(chanName,genName)
     }
     return this.channelMap.get(chanName);

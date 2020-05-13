@@ -30,10 +30,10 @@ function Hangman() {
     var tossUpCount;
     var tossUpGuess;    
     
-    var autoGamesFile = "scriptdata/hangmanq.txt";
-    var leaderboardsFile = "scriptdata/hangmanLeaderboards.txt";
-    var changeLogFile = "scriptdata/hangmanchangelog.txt";
-    var flashlistFile = "scriptdata/hangmanflashlist.txt";
+    var autoGamesFile = "server-data/hangmanq.txt";
+    var leaderboardsFile = "server-data/hangmanLeaderboards.txt";
+    var changeLogFile = "server-data/hangmanchangelog.txt";
+    var flashlistFile = "server-data/hangmanflashlist.txt";
 
     var autoGames;
     var autoGamesEnabled = false;    

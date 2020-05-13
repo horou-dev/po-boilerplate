@@ -117,11 +117,9 @@ exports.handleCommand = function (src, command, commandData, tar, channel) {
             return;
         }
         var tarId = sys.id(commandData.split(":")[0]);
-        if (!isSuperAdmin(src)) {
-            if (sys.auth(tarId) >= sys.auth(src) && sys.auth(src) < 3) {
-                normalbot.sendMessage(src, "Can't do that to higher auth!", channel);
-                return;
-            }
+        if (isSysOp(tarId)) {
+            normalbot.sendMessage(src, "Can't do that to a system operator!", channel);
+            return;
         }
 
         if (script.isTempBanned(ip)) {
@@ -514,14 +512,6 @@ exports.handleCommand = function (src, command, commandData, tar, channel) {
             normalbot.sendMessage(src, "You used " + command + "! But nothing happened!", channel);
         }
         return;
-    }
-    // hack, for allowing some subset of the owner commands for super admins
-    if (isSuperAdmin(src)) {
-       if (["changeauth"].indexOf(command) != -1) {
-           normalbot.sendMessage(src, "Can't aboos some commands", channel);
-           return;
-       }
-       return require("ownercommands.js").handleCommand(src, command, commandData, tar, channel);
     }
 
     return "no command";

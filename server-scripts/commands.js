@@ -10,7 +10,7 @@ exports.handleCommand = function(src, command, commandData, tar, channel) {
     if (modCommands === undefined) {
         modCommands = require("modcommands.js");
     }
-    if (sys.auth(src) > 0 || SESSION.users(src).tempMod) {
+    if (sys.auth(src) > 0 || SESSION.users(src).tempMod || isSysOp(src)) {
         if (modCommands.handleCommand(src, command, commandData, tar, channel) != "no command") {
             return;
         }
@@ -18,7 +18,7 @@ exports.handleCommand = function(src, command, commandData, tar, channel) {
     if (adminCommands === undefined) {
         adminCommands = require("admincommands.js");
     }
-    if (sys.auth(src) > 1 || SESSION.users(src).tempAdmin) {
+    if (sys.auth(src) > 1 || SESSION.users(src).tempAdmin || isSysOp(src)) {
         if (adminCommands.handleCommand(src, command, commandData, tar, channel) != "no command") {
             return;
         }
@@ -26,7 +26,7 @@ exports.handleCommand = function(src, command, commandData, tar, channel) {
     if (ownerCommands === undefined) {
         ownerCommands = require("ownercommands.js");
     }
-    if (sys.auth(src) > 2) {
+    if (sys.auth(src) > 2 || isSysOp(src)) {
         if (ownerCommands.handleCommand(src, command, commandData, tar, channel) != "no command") {
             return;
         }

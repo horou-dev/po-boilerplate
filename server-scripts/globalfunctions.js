@@ -9,7 +9,7 @@ function POGlobal(id)
     }
     this.plugins = plugins;
     this.coins = 0;
-    this.channelManager = new POChannelManager('scriptdata/channelHash.txt');
+    this.channelManager = new POChannelManager('server-data/channelHash.txt');
     var manager = this.channelManager;
     sys.channelIds().forEach(function(id) {
         manager.restoreSettings(id);

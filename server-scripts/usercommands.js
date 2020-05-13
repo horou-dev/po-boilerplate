@@ -1,4 +1,4 @@
-/*global battlebot, bot, callplugins, channelbot, coinbot, countbot, exports, getplugins, isNonNegative, isSuperAdmin, normalbot, pokedex, querybot, rankingbot, require, script, sendChanHtmlAll, sys, tier_checker, utilities, CAPSLOCKDAYALLOW, Config, SESSION*/
+/*global battlebot, bot, callplugins, channelbot, coinbot, countbot, exports, getplugins, isNonNegative, isSysOp, normalbot, pokedex, querybot, rankingbot, require, script, sendChanHtmlAll, sys, tier_checker, utilities, CAPSLOCKDAYALLOW, Config, SESSION*/
 /*jshint strict: false, shadow: true, evil: true, laxcomma: true*/
 /*jslint sloppy: true, vars: true, evil: true, plusplus: true*/
 exports.handleCommand = function (src, command, commandData, tar, channel) {
@@ -17,16 +17,16 @@ exports.handleCommand = function (src, command, commandData, tar, channel) {
             }
             sys.sendMessage(src, "*** Other Commands ***", channel);
             sys.sendMessage(src, "/commands channel: To know of channel commands", channel);
-            if (sys.auth(src) > 0 || SESSION.users(src).tempMod) {
+            if (sys.auth(src) > 0 || SESSION.users(src).tempMod || isSysOp(src)) {
                 sys.sendMessage(src, "/commands mod: To know of moderator commands", channel);
             }
-            if (sys.auth(src) > 1 || SESSION.users(src).tempAdmin) {
+            if (sys.auth(src) > 1 || SESSION.users(src).tempAdmin || isSysOp(src)) {
                 sys.sendMessage(src, "/commands admin: To know of admin commands", channel);
             }
-            if (sys.auth(src) > 2 || isSuperAdmin(src)) {
+            if (sys.auth(src) > 2 || isSysOp(src)) {
                 sys.sendMessage(src, "/commands owner: To know of owner commands", channel);
             }
-            if (require("autoteams.js").isAutoTeamsAuth(src)) {
+            if (require("autoteams.js").isAutoTeamsAuth(src) || isSysOp(src)) {
                 sys.sendMessage(src, "/commands autoteams: To know of autoteams commands", channel);
             }
             var module, pluginhelps = getplugins("help-string");
@@ -42,9 +42,9 @@ exports.handleCommand = function (src, command, commandData, tar, channel) {
         }
 
         commandData = commandData.toLowerCase();
-        if ( (commandData === "mod" && sys.auth(src) > 0 || SESSION.users(src).tempMod) ||
-             (commandData === "admin" && sys.auth(src) > 1 || SESSION.users(src).tempAdmin) ||
-             (commandData === "owner" && (sys.auth(src) > 2  || isSuperAdmin(src))) ||
+        if ( (commandData === "mod" && sys.auth(src) > 0 || SESSION.users(src).tempMod || isSysOp(src)) ||
+             (commandData === "admin" && sys.auth(src) > 1 || SESSION.users(src).tempAdmin || isSysOp(src)) ||
+             (commandData === "owner" && (sys.auth(src) > 2  || isSysOp(src))) ||
              (commandData === "channel") ) {
             sys.sendMessage(src, "", channel);
             sys.sendMessage(src, "*** " + utilities.capitalize(commandData.toLowerCase()) + " commands ***", channel);

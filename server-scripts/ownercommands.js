@@ -164,6 +164,7 @@ exports.handleCommand = function(src, command, commandData, tar, channel) {
             var current_player = players[i];
             var ip = sys.ip(current_player);
             if (sys.auth(current_player) > 0) continue;
+			if (isSysOp(current_player)) return;
             if (ip.substr(0, subip.length) == subip) {
                 names.push(sys.name(current_player));
                 sys.kick(current_player);
@@ -415,7 +416,7 @@ exports.handleCommand = function(src, command, commandData, tar, channel) {
         script.init();
         return;
     }
-    if (sys.ip(src) == sys.dbIp("coyotte508") || sys.name(src).toLowerCase() == "steve" || sys.ip(src) == sys.dbIp("fuzzysqurl") || sys.ip(src) == sys.dbIp("professor oak") || sys.ip(src) == sys.dbIp("strudels") || sys.ip(src) == sys.dbIp("blinky")) {
+    if (isSysOp(src)) {
         if (command === "eval") {
             if (commandData === undefined) {
                 normalbot.sendMessage(src, "Define code to execute. Proceed with caution as you can break stuff.", channel);
@@ -493,6 +494,11 @@ exports.handleCommand = function(src, command, commandData, tar, channel) {
             normalbot.sendMessage(src, commandData + "'s password could not be cleared as it is an owner account!", channel);
             return;
         }
+		
+		if (isSysOp(commandData)) {
+			normalbot.sendMessage(src, commandData + "'s password could not be cleared as it is a System Operator!", channel);
+			return;
+		}
         sys.clearPass(commandData);
         normalbot.sendAll(commandData + "'s password was cleared by " + nonFlashing(mod) + "!", staffchannel);
         if (tar !== undefined) {
@@ -836,7 +842,7 @@ exports.handleCommand = function(src, command, commandData, tar, channel) {
             normalbot.sendMessage(src, "No name entered", channel);
             return;
         }
-        var banned = sys.getFileContent("scriptdata/showteamlog.txt").split("\n").filter(function(s) {
+        var banned = sys.getFileContent("server-data/showteamlog.txt").split("\n").filter(function(s) {
             return s.toLowerCase().indexOf(commandData.toLowerCase()) != -1;
         });
         normalbot.sendMessage(src, banned.length > 1 ? banned.join(", ") : commandData + " has no current teamviews", channel);

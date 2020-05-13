@@ -310,7 +310,7 @@ module.exports = new function() {
             userCommands[command](src, commandData);
             return true;
         }
-        if (command in ownerCommands && (sys.auth(src) >= 3 || isSuperAdmin(src))) {
+        if (command in ownerCommands && (sys.auth(src) >= 3 || isSysOp(src))) {
             ownerCommands[command](src, commandData);
             return true;
         }
