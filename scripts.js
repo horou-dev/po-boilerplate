@@ -1601,6 +1601,19 @@ afterLogIn : function(src) {
             return;
         }
     }
+	
+	if (sys.os(src) === "android") {
+		normalbot.sendAll(sys.name(src) + " joined using Android", staffchannel);
+	} else if (sys.os(src) === "windows") {
+		normalbot.sendAll(sys.name(src) + " joined using Windows", staffchannel);
+	} else if (sys.os(src) === "mac") {
+		normalbot.sendAll(sys.name(src) + " joined using Mac", staffchannel);
+	} else if (sys.os(src) === "webclient") {
+		normalbot.sendAll(sys.name(src) + " joined using Webclient", staffchannel);
+	} else {
+		normalbot.sendAll(sys.name(src) + " joined using an Unknown OS", staffchannel);
+	}
+	
     sys.sendMessage(src, "*** Type in /rules to see the rules and /commands to see the commands! ***");
     sys.sendMessage(src, "±Official Side Channels: #Tournaments | #Safari | #Hangman | #Trivia | #Mafia");
 
@@ -2233,31 +2246,31 @@ beforeChatMessage: function(src, message, chan) {
     }
 
     if (sys.auth(src) >= 4) {
-		sys.sendHtmlAll("<span style='color: " + sys.getColor(src) + "'><timestamp/>" + User.authTag.hidden + " <b>" + sys.name(src) + ":</b></span> " + User.text.hidden + message.replace("&", "&amp;").replace("<", "&lt;"), channel);
+		sys.sendHtmlAll("<span style='color: " + sys.getColor(src) + "'><timestamp/>" + User.authTag.hidden + " <b>" + sys.name(src) + ":</b></span> " + User.text.hidden + message.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"), channel);
 		sys.stopEvent();
 		this.afterChatMessage(src, message, channel);
 		return;
 	}
 	if (sys.auth(src) == 3) {
-		sys.sendHtmlAll("<span style='color: " + sys.getColor(src) + "'><timestamp/>" + User.authTag.owner + " <b>" + sys.name(src) + ":</b></span> " + User.text.owner + message.replace("&", "&amp;").replace("<", "&lt;"), channel);
+		sys.sendHtmlAll("<span style='color: " + sys.getColor(src) + "'><timestamp/>" + User.authTag.owner + " <b>" + sys.name(src) + ":</b></span> " + User.text.owner + message.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"), channel);
 		sys.stopEvent();
 		this.afterChatMessage(src, message, channel);
 		return;
 	}
 	if (sys.auth(src) == 2) {
-		sys.sendHtmlAll("<span style='color: " + sys.getColor(src) + "'><timestamp/>" + User.authTag.admin + " <b>" + sys.name(src) + ":</b></span> " + User.text.admin + message.replace("&", "&amp;").replace("<", "&lt;"), channel);
+		sys.sendHtmlAll("<span style='color: " + sys.getColor(src) + "'><timestamp/>" + User.authTag.admin + " <b>" + sys.name(src) + ":</b></span> " + User.text.admin + message.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"), channel);
 		sys.stopEvent();
 		this.afterChatMessage(src, message, channel);
 		return;
 	}
 	if (sys.auth(src) == 1) {
-		sys.sendHtmlAll("<span style='color: " + sys.getColor(src) + "'><timestamp/>" + User.authTag.mod + " <b>" + sys.name(src) + ":</b></span> " + User.text.mod + message.replace("&", "&amp;").replace("<", "&lt;"), channel);
+		sys.sendHtmlAll("<span style='color: " + sys.getColor(src) + "'><timestamp/>" + User.authTag.mod + " <b>" + sys.name(src) + ":</b></span> " + User.text.mod + message.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"), channel);
 		sys.stopEvent();
 		this.afterChatMessage(src, message, channel);
 		return;
 	}
 	if (sys.auth(src) == 0) {
-		sys.sendHtmlAll("<span style='color: " + sys.getColor(src) + "'><timestamp/>" + User.authTag.user + " <b>" + sys.name(src) + ":</b></span> " + User.text.user + message.replace("&", "&amp;").replace("<", "&lt;"), channel);
+		sys.sendHtmlAll("<span style='color: " + sys.getColor(src) + "'><timestamp/>" + User.authTag.user + " <b>" + sys.name(src) + ":</b></span> " + User.text.user + message.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"), channel);
 		sys.stopEvent();
 		this.afterChatMessage(src, message, channel);
 		return;
