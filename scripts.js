@@ -15,9 +15,11 @@ var User = {};
 
 // Sysop List.
 var sysOpUsers = [];
+var vipUsers = [];
 
 User.authTag = {
 	user   : "<b><font color='grey'>[User]</font></b>",
+	vipUser: "<b><font color='purple'>[V.I.P]</font></b>",
 	mod    : "<b><font color='#0d255e'>[Moderator]</font></b>",
 	admin  : "<b><font color='#c4921d'>[Administrator]</font></b>",
 	owner  : "<b><font color='maroon'>[Owner]</font></b>",
@@ -26,6 +28,7 @@ User.authTag = {
 
 User.text = {
 	user   : " ",
+	vipUser: "<font color='#1a8c00'>",
 	mod    : "<font color='#8c3608'>",
 	admin  : "<font color='#1e405e'>",
 	owner  : "<font color='red'>",
@@ -491,6 +494,7 @@ serverStartUp : function() {
 
 init : function() {
     script.sysOpUser = sysOpUsers;
+	script.vipUser = vipUsers;
     script.rules = {
         "1": {
             "english": [
@@ -685,6 +689,16 @@ init : function() {
         return false;
     };
 
+	isVipUser = function(id) {
+		if (typeof script.vipUser != "object" || script.vipUser.length === undefined) return false;
+		var name = sys.name(id);
+		for (var i = 0; i < script.vipUser.length; ++i) {
+			if (script.cmp(name, script.vipUser[i]))
+				return true;
+		}
+		return false;
+	};
+	
     script.battlesStopped = false;
 
     maxPlayersOnline = 0;
@@ -1623,16 +1637,19 @@ afterLogIn : function(src) {
     }
     countbot.sendMessage(src, (typeof(this.startUpTime()) == "string" ?  "Server Uptime: " + this.startUpTime() + ".  " : "")  + "Max Players Online: " + sys.getVal("MaxPlayersOnline") + ".");
     if (sys.auth(src) == 3) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.owner + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.owner + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", 0);
 	}
 	if (sys.auth(src) == 2) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.admin + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.admin + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", 0);
 	}
 	if (sys.auth(src) == 1) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.mod + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.mod + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", 0);
 	}
-	if (sys.auth(src) == 0) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.user + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", channel);
+	if (sys.auth(src) == 0 && isVipUser(src)) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.vipUser + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", 0);
+	}
+	if (sys.auth(src) == 0 && !isVipUser(src)) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.user + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has joined the server!", 0);
     }
 	sys.sendMessage(src, "");
 	
@@ -1698,16 +1715,19 @@ beforeLogOut : function(src) {
         sys.appendToFile("staffstats.txt", sys.name(src) + "~" + src + "~" + sys.time() + "~" + "Disconnected as Auth" + "\n");
 	
 	if (sys.auth(src) == 3) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.owner + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has left the server!", channel);
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.owner + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has left the server!", 0);
 	}
 	if (sys.auth(src) == 2) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.admin + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has left the server!", channel);
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.admin + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has left the server!", 0);
 	}
 	if (sys.auth(src) == 1) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.mod + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has left the server!", channel);
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.mod + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has left the server!", 0);
 	}
-	if (sys.auth(src) == 0) {
-		sys.sendHtmlAll("<timestamp/>" + User.authTag.user + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has left the server!", channel);
+	if (sys.auth(src) == 0 && isVipUser(src)) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.vipUser + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has left the server!", 0);
+	}
+	if (sys.auth(src) == 0 && !isVipUser(src)) {
+		sys.sendHtmlAll("<timestamp/>" + User.authTag.user + "<span style='color: " + sys.getColor(src) + "'><b> " + sys.name(src) + "</b></span> has left the server!", 0);
     }
 },
 
@@ -2269,7 +2289,13 @@ beforeChatMessage: function(src, message, chan) {
 		this.afterChatMessage(src, message, channel);
 		return;
 	}
-	if (sys.auth(src) == 0) {
+	if (sys.auth(src) == 0 && isVipUser(src)) {
+		sys.sendHtmlAll("<span style='color: " + sys.getColor(src) + "'><timestamp/>" + User.authTag.vipUser + " <b>" + sys.name(src) + ":</b></span> " + User.text.vipUser + message.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"), channel);
+		sys.stopEvent();
+		this.afterChatMessage(src, message, channel);
+		return;
+	}
+	if (sys.auth(src) == 0 && !isVipUser(src)) {
 		sys.sendHtmlAll("<span style='color: " + sys.getColor(src) + "'><timestamp/>" + User.authTag.user + " <b>" + sys.name(src) + ":</b></span> " + User.text.user + message.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"), channel);
 		sys.stopEvent();
 		this.afterChatMessage(src, message, channel);
