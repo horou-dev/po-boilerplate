@@ -18,21 +18,21 @@ var sysOpUsers = [];
 var vipUsers = [];
 
 User.authTag = {
-	user	: "<b><font color='grey'>[User]</font></b>",
-	vipUser: "<b><font color='purple'>[V.I.P]</font></b>",
-	mod	: "<b><font color='#0d255e'>[Moderator]</font></b>",
-	admin  : "<b><font color='#c4921d'>[Administrator]</font></b>",
-	owner  : "<b><font color='maroon'>[Owner]</font></b>",
-	hidden : "<b><font color='grey'>[User]</font></b>"
+	user    : "<b><font color='grey'>[User]</font></b>",
+	vipUser : "<b><font color='purple'>[V.I.P]</font></b>",
+	mod	    : "<b><font color='#0d255e'>[Moderator]</font></b>",
+	admin   : "<b><font color='#c4921d'>[Administrator]</font></b>",
+	owner   : "<b><font color='maroon'>[Owner]</font></b>",
+	hidden  : "<b><font color='grey'>[User]</font></b>"
 };
 
 User.text = {
 	user	: " ",
-	vipUser: "<font color='#1a8c00'>",
-	mod	: "<font color='#8c3608'>",
-	admin  : "<font color='#1e405e'>",
-	owner  : "<font color='red'>",
-	hidden : " "
+	vipUser : "<font color='#1a8c00'>",
+	mod	    : "<font color='#8c3608'>",
+	admin   : "<font color='#1e405e'>",
+	owner   : "<font color='red'>",
+	hidden  : " "
 };
 
 var Config = {
