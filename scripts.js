@@ -27,9 +27,9 @@ User.authTag = {
 };
 
 User.text = {
-	user	: " ",
+	user    : " ",
 	vipUser : "<font color='#1a8c00'>",
-	mod	    : "<font color='#8c3608'>",
+	mod     : "<font color='#8c3608'>",
 	admin   : "<font color='#1e405e'>",
 	owner   : "<font color='red'>",
 	hidden  : " "
